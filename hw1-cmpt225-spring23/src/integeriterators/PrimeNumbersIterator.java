@@ -1,5 +1,4 @@
 package integeriterators;
-import java.util.*;
 
 public class PrimeNumbersIterator implements IntegerIterator {
 
@@ -30,11 +29,11 @@ public class PrimeNumbersIterator implements IntegerIterator {
 	}
 	
 	public PrimeNumbersIterator() {
-		currPrime = 2;
+		this.currPrime = 2;
 	}
 	
 	public PrimeNumbersIterator(int n) {
-		currPrime = generateNextPrime(n);
+		this.currPrime = generateNextPrime(n);
 	}
 	
 	@Override
@@ -46,8 +45,8 @@ public class PrimeNumbersIterator implements IntegerIterator {
 	public Integer next() {
 		int retVal;
 
-		retVal = currPrime;
-		currPrime = generateNextPrime(retVal + 1);
+		retVal = this.currPrime;
+		this.currPrime = generateNextPrime(retVal + 1);
 		return retVal;
 	}
 	

@@ -72,6 +72,16 @@ public class TestIterators
 		System.out.println("testPrimes1 OK");
 	}
 
+	public static void testPrimesGenSpeed() {
+		PrimeNumbersIterator iter = new PrimeNumbersIterator();
+		long start = System.currentTimeMillis();
+		for (int i = 0; i<500000; i++)
+			iter.next();
+		long end = System.currentTimeMillis();
+		System.out.println(end - start + "ms");
+		iter.reset();
+	}
+
 	public static void testPrimes2() {
 		int primes[] = {7,11,13,17,19,23,29};
 		
@@ -178,6 +188,7 @@ public class TestIterators
 	}
 
 	public static void main(String[] args) {
+
 		testArrayIterator1();
 		testArrayIterator2();
 		testPrimes1();
@@ -186,5 +197,11 @@ public class TestIterators
 		testRangeIterator1();
 		testRangeIterator2();
 		testRangeIterator3();
+
+
+		testPrimesGenSpeed();
+		testPrimesGenSpeed();
+		testPrimesGenSpeed();
+		testPrimesGenSpeed();
 	}
 }
