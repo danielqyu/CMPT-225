@@ -49,14 +49,13 @@ public class ArrayIterator implements IntegerIterator
 			}
 		} else {
 			if (!hasNext()) {
-				NoSuchElementException ex = new NoSuchElementException("No next element");
-				throw ex;
+				throw new NoSuchElementException("No next element");
 			}
 		}
 		currIndex += 1;
 		return currArray[returnIndex];
 	}
-	
+
 	public void reset() {
 		currIndex = 0;
 	}

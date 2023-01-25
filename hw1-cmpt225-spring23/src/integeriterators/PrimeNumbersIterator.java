@@ -1,28 +1,58 @@
 package integeriterators;
+import java.util.*;
 
 public class PrimeNumbersIterator implements IntegerIterator {
+
+	protected int currPrime;
+
+	private boolean isPrime(int num) {
+		int i;
+		if (num <= 1) {
+			return false;
+		}
+
+		i = 2;
+		while (i*i <= num) {
+			if (num % i == 0) {
+				return false;
+			}
+			i += 1;
+		}
+		return true;
+	}
+
+	protected int generateNextPrime(int startNum) {
+		int currNum = startNum;
+		while (!isPrime(currNum)) {
+			currNum += 1;
+		}
+		return currNum;
+	}
 	
 	public PrimeNumbersIterator() {
-		// TODO implement me
+		currPrime = 2;
 	}
 	
 	public PrimeNumbersIterator(int n) {
-		// TODO implement me
+		currPrime = generateNextPrime(n);
 	}
 	
 	@Override
 	public boolean hasNext() {
-		// TODO implement me
-		return false;
+		return true;
 	}
 	
 	@Override
 	public Integer next() {
-		// TODO implement me
-		return 0;
+		int retVal;
+
+		retVal = currPrime;
+		currPrime = generateNextPrime(retVal + 1);
+		return retVal;
 	}
 	
 	public void reset() {
-		// TODO implement me
+		currPrime = 2;
 	}
+
 }
