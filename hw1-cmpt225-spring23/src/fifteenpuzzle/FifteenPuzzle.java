@@ -51,7 +51,7 @@ public class FifteenPuzzle {
 			for (int i=0; i < 11; i++) {			// Convert row to array of ascii values
 				character = line.charAt(i);
 
-				if (!Character.isSpace(character) && (!Character.isDigit(character))) {		// check that only spaces and digits
+				if (!Character.isWhitespace(character) && (!Character.isDigit(character))) {		// check that only spaces and digits
 					reader.close();
 					throw badBoardEx;
 				}
