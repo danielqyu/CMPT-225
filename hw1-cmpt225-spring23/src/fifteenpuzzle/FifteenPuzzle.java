@@ -112,7 +112,7 @@ public class FifteenPuzzle {
 			for (int j=0; j < inputBoard[i].length; j++)
 				boardNumList.add(inputBoard[i][j]);
 
-		Set boardNumSet = new HashSet(boardNumList);
+		HashSet<Integer> boardNumSet = new HashSet(boardNumList);
 		if (boardNumSet.size() < boardNumList.size()) {
 			return true;
 		}
