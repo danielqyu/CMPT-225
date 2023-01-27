@@ -10,7 +10,7 @@ public class TestFifteenPuzzle
 	public static void testReadFromFile1() {
 		try {
 			FifteenPuzzle game1 = new FifteenPuzzle("board1.txt");
-			System.out.println("created game1: " + game1);
+			System.out.println("created game1: \n" + game1);
 			String expected1 =
 					" 1  8  4  6" + "\n" + 
 				 	" 2  3  5 15" + "\n" +
@@ -18,7 +18,7 @@ public class TestFifteenPuzzle
 		 			" 7 14 13   " + "\n";
 
 			FifteenPuzzle game2 = new FifteenPuzzle("board2.txt");
-			System.out.println("created game2: " + game2);
+			System.out.println("created game2: \n" + game2);
 			// add a test for toString() yourself
 
 			if (!expected1.equals(game1.toString())) {
