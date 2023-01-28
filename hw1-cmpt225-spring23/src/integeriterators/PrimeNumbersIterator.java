@@ -3,23 +3,7 @@ package integeriterators;
 public class PrimeNumbersIterator implements IntegerIterator {
 
 	protected int currPrime;
-/*
-	private boolean isPrime(int num) {
-		int i;
-		if (num <= 1) {
-			return false;
-		}
 
-		i = 2;
-		while (i*i <= num) {
-			if (num % i == 0) {
-				return false;
-			}
-			i += 1;
-		}
-		return true;
-	}
-	*/
 	private boolean isPrime(int num) {
 		if (num <= 1)
 		{
@@ -29,7 +13,7 @@ public class PrimeNumbersIterator implements IntegerIterator {
 		{
 			return true;
 		}
-		// this theory is from geeksforgeeks
+		// this is from geeksforgeeks
 		if (num % 2 == 0 || num % 3 == 0)
 		{
 			return false;

@@ -1,9 +1,6 @@
 package fifteenpuzzle;
 
-import integeriterators.ArrayIterator;
-
 import java.io.*;
-import java.lang.reflect.UndeclaredThrowableException;
 import java.util.*;
 
 public class FifteenPuzzle {
@@ -112,7 +109,7 @@ public class FifteenPuzzle {
 			for (int j=0; j < inputBoard[i].length; j++)
 				boardNumList.add(inputBoard[i][j]);
 
-		HashSet<Integer> boardNumSet = new HashSet(boardNumList);
+		Set<Integer> boardNumSet = new HashSet(boardNumList);
 		if (boardNumSet.size() < boardNumList.size()) {
 			return true;
 		}
@@ -237,28 +234,5 @@ public class FifteenPuzzle {
 			formattedBoard += "\n";
 		}
 		return formattedBoard;
-	}
-
-	public static void main(String[] args) throws UnsupportedEncodingException, BadBoardException, IOException{
-		//System.out.println(concatToInt(' ', '1'));
-		int[] a = new int[11];
-
-		String c = " 1 12 10517";
-		for (int i=0; i < 11; i++) {
-			char num = c.charAt(i);
-			int ascii = num;
-			a[i] = ascii;
-		}
-		for (int i=0; i < a.length; i++)
-			System.out.println(a[i]);
-
-		for (int i=2; i < 11; i+=3) {
-			if (a[i] != 32) {
-				System.out.println("GRR");
-			}
-		}
-
-		FifteenPuzzle game1 = new FifteenPuzzle("board1.txt");
-		System.out.println(game1);
 	}
 }
