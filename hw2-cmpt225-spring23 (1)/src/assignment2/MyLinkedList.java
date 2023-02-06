@@ -153,9 +153,17 @@ public class MyLinkedList<T> {
 		}
 
 		retVal = this.tail.data;
-		this.tail = this.tail.prev;
-		this.tail.next = null;
+		if (this.tail.prev != null) {
+			this.tail = this.tail.prev;
+			this.tail.next = null;
+		} else {
+			this.tail = null;
+		}
+
 		this.length--;
+		if (this.length % 2 != 0) {
+			this.mid = this.mid.prev;
+		}
 		this.runReverse = false;
 		return retVal;
 	}

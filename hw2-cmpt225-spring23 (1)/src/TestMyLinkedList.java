@@ -1,5 +1,7 @@
 import assignment2.MyLinkedList;
 
+import java.util.NoSuchElementException;
+
 public class TestMyLinkedList {
 
 	public static void test1() {
@@ -129,6 +131,19 @@ public class TestMyLinkedList {
 		else
 			System.out.println("test6 ERROR");
 	}
+
+	public static void test7() {
+		MyLinkedList<String> l = new MyLinkedList<String>();
+		l.addLeft("D");
+		l.removeLeft();
+		try {
+			l.removeRight();
+			System.out.println("test7: ERROR didn't catch NoSuchElement");
+		} catch(NoSuchElementException e) {
+			System.out.println("test7: OK");
+			System.out.println(e);
+		}
+	}
 	
 	public static void main(String[] args) {
 		test1();
@@ -137,5 +152,6 @@ public class TestMyLinkedList {
 		test4();
 		test5();
 		test6();
+		test7();
 	}
 }
