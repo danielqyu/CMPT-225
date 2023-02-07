@@ -19,7 +19,8 @@ public class MyLinkedList<T> {
 	private Node<T> mid;
 	private int length;
 	private boolean reverse;
-	private boolean runReverse;
+	private final String RIGHT = "Right";
+	private final String LEFT = "Left";
 
 	static class Node<T> {
 		T data;
@@ -42,100 +43,90 @@ public class MyLinkedList<T> {
 		this.mid = null;
 		this.length = 0;
 		this.reverse = false;
-		this.runReverse = false;
 	}
 
 	/**
 	 * Adds the new item to the left of the list. 
 	 */
 	public void addLeft(T item) {
-		if (item == null) 
-			return;
-		if (this.reverse && this.runReverse != true) {
-			this.runReverse = true;
-			addRight(item);
-			return;
+		String dir = LEFT;
+		if (this.reverse) {
+			dir = RIGHT;
 		}
-
-		Node<T> newNode = new Node<>(item);
-		this.length++;
-
-		if (this.head == null) {
-			this.head = newNode;
-			this.tail = newNode;
-			this.mid = newNode;
-		} else {
-			newNode.next = this.head;
-			this.head.prev = newNode;
-			this.head = newNode;
-
-			if (this.length == 2) {
-				return;
-			}
-			if ((this.length % 2) != 0) {
-				this.mid = this.mid.prev;
-			}
-		}
-
-		this.runReverse = false;
+		addItem(item, dir);
 	}
 
 	/**
 	 * Adds the new item to the right of the list. 
 	 */
 	public void addRight(T item) {
-		if (item == null)
-			return;
-		if (this.reverse && this.runReverse != true) {
-			this.runReverse = true;
-			addLeft(item);
-			return;
+		String dir = RIGHT;
+		if (this.reverse) {
+			dir = LEFT;
 		}
+		addItem(item, dir);
+	}
 
+	/**
+	 *
+	 * @param item
+	 * @param direction
+	 * @throws IllegalArgumentException
+	 */
+	private void addItem(T item, String direction) throws IllegalArgumentException{
+		if (direction != RIGHT && direction != LEFT) {
+			throw new IllegalArgumentException();
+		}
 		Node<T> newNode = new Node<>(item);
 		this.length++;
+		if (direction == RIGHT) {
+			if (this.tail == null) {
+				this.head = newNode;
+				this.tail = newNode;
+				this.mid = newNode;
+			} else {
+				newNode.prev = this.tail;
+				this.tail.next = newNode;
+				this.tail = newNode;
 
-		if (this.tail == null) {
-			this.head = newNode;
-			this.tail = newNode;
-			this.mid = newNode;
-		} else {
-			newNode.prev = this.tail;
-			this.tail.next = newNode;
-			this.tail = newNode;
+				if ((this.length % 2) == 0) {
+					this.mid = this.mid.next;
+				}
+			}
+		} else if (direction == LEFT) {
+			if (this.head == null) {
+				this.head = newNode;
+				this.tail = newNode;
+				this.mid = newNode;
+			} else {
+				newNode.next = this.head;
+				this.head.prev = newNode;
+				this.head = newNode;
 
-			if ((this.length % 2) == 0) {
-				this.mid = this.mid.next;
+				if (this.length == 2) {
+					return;
+				}
+				if ((this.length % 2) != 0) {
+					this.mid = this.mid.prev;
+				}
 			}
 		}
-
-		this.runReverse = false;
 	}
 
 	/**
 	 * Removes the leftmost item from the list and returns it.
 	 * If the list is empty, throws NoSuchElementException.
 	 */
-	public T removeLeft() throws NoSuchElementException{
-		T retVal;
-		if (isEmpty()) {
+	public T removeLeft() throws NoSuchElementException {
+		String dir = LEFT;
+		if (this.reverse) {
+			dir = RIGHT;
+		}
+		try {
+			return removeItem(dir);
+		} catch (NoSuchElementException e) {
 			throw new NoSuchElementException();
 		}
-		if (this.reverse && this.runReverse != true) {
-			this.runReverse = true;
-			return removeRight();
-		}
-
-		retVal = this.head.data;
-		if (this.head.next != null) {
-			this.head = this.head.next;
-			this.head.prev = null;
-		} else {
-			this.head = null;
-		}
-		this.length--;
-		this.runReverse = false;
-		return retVal;
 	}
 
 	/**
@@ -143,28 +134,60 @@ public class MyLinkedList<T> {
 	 * If the list is empty, throws NoSuchElementException.
 	 */
 	public T removeRight() throws NoSuchElementException{
-		T retVal;
+		String dir = RIGHT;
+		if (this.reverse) {
+			dir = LEFT;
+		}
+		try {
+			return removeItem(dir);
+		} catch (NoSuchElementException e) {
+			throw new NoSuchElementException();
+		}
+	}
+
+	/**
+	 *
+	 * @param direction
+	 * @return
+	 * @throws NoSuchElementException
+	 * @throws IllegalArgumentException
+	 */
+	private T removeItem(String direction) throws NoSuchElementException, IllegalArgumentException {
+		T retVal = null;
+		if (direction != RIGHT && direction != LEFT) {
+			throw new IllegalArgumentException();
+		}
 		if (isEmpty()) {
 			throw new NoSuchElementException();
 		}
-		if (this.reverse && this.runReverse != true) {
-			this.runReverse = true;
-			return removeLeft();
-		}
-
-		retVal = this.tail.data;
-		if (this.tail.prev != null) {
-			this.tail = this.tail.prev;
-			this.tail.next = null;
-		} else {
-			this.tail = null;
-		}
 
 		this.length--;
-		if (this.length % 2 != 0) {
-			this.mid = this.mid.prev;
+
+		if (direction == RIGHT) {
+			retVal = this.tail.data;
+			if (this.tail.prev != null) {
+				this.tail = this.tail.prev;
+				this.tail.next = null;
+			} else {
+				this.tail = null;
+			}
+
+			if (this.length % 2 != 0) {
+				this.mid = this.mid.prev;
+			}
+		} else if (direction == LEFT) {
+			retVal = this.head.data;
+			if (this.head.next != null) {
+				this.head = this.head.next;
+				this.head.prev = null;
+			} else {
+				this.head = null;
+			}
+
+			if ((this.length % 2) == 0) {
+				this.mid = this.mid.next;
+			};
 		}
-		this.runReverse = false;
 		return retVal;
 	}
 
@@ -198,7 +221,7 @@ public class MyLinkedList<T> {
 		return this.mid.data;
 	}
 
-	/** 
+	/**
 	 * Returns the size of the list.
 	 */
 	public int size() {

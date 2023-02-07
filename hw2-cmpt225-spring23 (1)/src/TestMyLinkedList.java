@@ -141,8 +141,68 @@ public class TestMyLinkedList {
 			System.out.println("test7: ERROR didn't catch NoSuchElement");
 		} catch(NoSuchElementException e) {
 			System.out.println("test7: OK");
-			System.out.println(e);
+			//System.out.println(e);
 		}
+	}
+
+	public static void test8() {
+		MyLinkedList<String> l = new MyLinkedList<>();
+		l.addLeft("D");
+		l.removeLeft();
+		if (l.isEmpty()) {
+			try {
+				if (l.getMiddle() == null) {
+					System.out.println("test8 Part1: ERROR");
+				}
+				System.out.println("test8 Part1: ERROR");
+			} catch(NoSuchElementException e) {
+				System.out.println("test8 Part1: OK");
+				System.out.println(e);
+			}
+		} else {
+			System.out.println("test8 Part1: ERROR");
+		}
+
+		l.addLeft("A");
+		l.removeRight();
+		if (l.isEmpty()) {
+			try {
+				if (l.getMiddle() == null) {
+					System.out.println("test8 Part2: ERROR");
+				}
+				System.out.println("test8 Part2: ERROR");
+			} catch(NoSuchElementException e) {
+				System.out.println("test8 Part2: OK");
+				System.out.println(e);
+			}
+		} else {
+			System.out.println("test8 Part2: ERROR");
+		}
+	}
+
+	public static void test9() {
+		MyLinkedList<String> l = new MyLinkedList<>();
+		l.addLeft("D");
+		l.removeRight();
+		l.addRight("D");
+		l.addRight("C");
+		l.removeRight();
+		if (l.getMiddle() == "D") {
+			System.out.println("Test9: OK");
+		} else {
+			System.out.println("Test9: ERROR");
+		}
+
+		l.addRight("A");
+		l.addLeft("A");
+		l.addRight("A");
+		l.addLeft("A");
+		if (l.getMiddle() == "D") {
+			System.out.println("Test9 Part2: OK");
+		} else {
+			System.out.println("Test9 Part2: ERROR");
+		}
+		l.addLeft(null);
 	}
 	
 	public static void main(String[] args) {
@@ -153,5 +213,7 @@ public class TestMyLinkedList {
 		test5();
 		test6();
 		test7();
+		test8();
+		test9();
 	}
 }
